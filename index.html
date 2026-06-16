@@ -1,1 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cloud Business Solution</title>
 
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
+}
+
+body{
+    background:#f4f7fc;
+    color:#333;
+}
+
+header{
+    background:linear-gradient(135deg,#007bff,#00c6ff);
+    color:white;
+    text-align:center;
+    padding:80px 20px;
+}
+
+header h1{
+    font-size:3rem;
+}
+
+header p{
+    margin-top:15px;
+    font-size:1.2rem;
+}
+
+.btn{
+    display:inline-block;
+    margin-top:20px;
+    padding:12px 25px;
+    background:white;
+    color:#007bff;
+    text-decoration:none;
+    border-radius:5px;
+    font-weight:bold;
+}
+
+section{
+    padding:60px 10%;
+}
+
+.section-title{
+    text-align:center;
+    margin-bottom:40px;
+    font-size:2rem;
+    color:#007bff;
+}
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+    gap:25px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+    transition:0.3s;
+}
+
+.card:hover{
+    transform:translateY(-5px);
+}
+
+.card h3{
+    margin-bottom:10px;
+    color:#007bff;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+    gap:20px;
+    text-align:center;
+}
+
+.stat-box{
+    background:white;
+    padding:25px;
+    border-radius:10px;
+    box-shadow:0 4px 10px rgba(0,0,0,0.1);
+}
+
+.stat-box h2{
+    color:#007bff;
+    margin-bottom:10px;
+}
+
+footer{
+    background:#222;
+    color:white;
+    text-align:center;
+    padding:20px;
+}
+
+.contact{
+    text-align:center;
+}
+
+.contact form{
+    max-width:600px;
+    margin:auto;
+}
+
+input, textarea{
+    width:100%;
+    padding:12px;
+    margin:10px 0;
+    border:1px solid #ccc;
+    border-radius:5px;
+}
+
+button{
+    background:#007bff;
+    color:white;
+    border:none;
+    padding:12px 25px;
+    border-radius:5px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#0056b3;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Cloud Business Solution</h1>
+    <p>Scalable Cloud Application Powered by Google Cloud Platform</p>
+    <a href="#services" class="btn">Explore Services</a>
+</header>
+
+<section id="services">
+    <h2 class="section-title">Our Cloud Services</h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>Cloud Hosting</h3>
+            <p>Deploy web applications using Google Cloud Run and App Engine.</p>
+        </div>
+
+        <div class="card">
+            <h3>CI/CD Automation</h3>
+            <p>Automated deployment pipeline using Cloud Build and GitHub.</p>
+        </div>
+
+        <div class="card">
+            <h3>Kubernetes</h3>
+            <p>Container orchestration using Google Kubernetes Engine (GKE).</p>
+        </div>
+
+        <div class="card">
+            <h3>Analytics Dashboard</h3>
+            <p>Business insights using Google Looker Studio dashboards.</p>
+        </div>
+
+    </div>
+</section>
+
+<section>
+    <h2 class="section-title">Cloud Benefits</h2>
+
+    <div class="stats">
+
+        <div class="stat-box">
+            <h2>99.9%</h2>
+            <p>Availability</p>
+        </div>
+
+        <div class="stat-box">
+            <h2>24/7</h2>
+            <p>Monitoring</p>
+        </div>
+
+        <div class="stat-box">
+            <h2>Auto</h2>
+            <p>Scaling</p>
+        </div>
+
+        <div class="stat-box">
+            <h2>Secure</h2>
+            <p>Cloud Infrastructure</p>
+        </div>
+
+    </div>
+</section>
+
+<section>
+    <h2 class="section-title">Architecture Overview</h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>User</h3>
+            <p>Accesses cloud application through a web browser.</p>
+        </div>
+
+        <div class="card">
+            <h3>Cloud Run</h3>
+            <p>Hosts and scales application automatically.</p>
+        </div>
+
+        <div class="card">
+            <h3>Cloud Storage</h3>
+            <p>Stores files, images and datasets securely.</p>
+        </div>
+
+        <div class="card">
+            <h3>Looker Studio</h3>
+            <p>Visualizes business data through dashboards.</p>
+        </div>
+
+    </div>
+</section>
+
+<section class="contact">
+    <h2 class="section-title">Contact Us</h2>
+
+    <form>
+        <input type="text" placeholder="Your Name">
+        <input type="email" placeholder="Your Email">
+        <textarea rows="5" placeholder="Your Message"></textarea>
+        <button type="submit">Send Message</button>
+    </form>
+
+</section>
+
+<footer>
+    <p>DIT1324 Cloud Computing Assignment | Google Cloud Platform Project</p>
+</footer>
+
+</body>
+</html>
