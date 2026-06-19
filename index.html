@@ -1,213 +1,49 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Penang Heritage Museum</title>
+import javax.swing.*;
+import java.awt.*;
 
-<style>
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Segoe UI, sans-serif;
+public class PenangMuseum {
+
+    public static void main(String[] args) {
+
+        JFrame frame = new JFrame("Penang Heritage Museum");
+        frame.setSize(800, 600);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+
+        JLabel title = new JLabel("Penang Heritage Museum", JLabel.CENTER);
+        title.setFont(new Font("Arial", Font.BOLD, 28));
+
+        JTextArea info = new JTextArea();
+        info.setEditable(false);
+        info.setLineWrap(true);
+        info.setWrapStyleWord(true);
+
+        info.setText(
+            "Welcome to the Penang Heritage Museum\n\n" +
+            "History of Penang:\n" +
+            "• 1786 - Captain Francis Light founded Penang.\n" +
+            "• 1826 - Became part of the Straits Settlements.\n" +
+            "• 1941 - Japanese occupation during World War II.\n" +
+            "• 2008 - George Town became a UNESCO World Heritage Site.\n\n" +
+            "The museum preserves the rich cultural and historical heritage of Penang."
+        );
+
+        JButton historyButton = new JButton("View History");
+
+        historyButton.addActionListener(e ->
+            JOptionPane.showMessageDialog(
+                frame,
+                "Penang is one of Malaysia's most important historical trading ports."
+            )
+        );
+
+        panel.add(title, BorderLayout.NORTH);
+        panel.add(new JScrollPane(info), BorderLayout.CENTER);
+        panel.add(historyButton, BorderLayout.SOUTH);
+
+        frame.add(panel);
+        frame.setVisible(true);
+    }
 }
-
-body{
-    background:#f4f4f4;
-    color:#333;
-}
-
-header{
-    background:url('https://images.unsplash.com/photo-1518546305927-5a555bb7020d?auto=format&fit=crop&w=1600&q=80');
-    background-size:cover;
-    background-position:center;
-    height:100vh;
-    color:white;
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-}
-
-header h1{
-    font-size:4rem;
-    text-shadow:2px 2px 10px black;
-}
-
-header p{
-    font-size:1.3rem;
-    margin-top:15px;
-    text-shadow:1px 1px 5px black;
-}
-
-nav{
-    background:#8B4513;
-    padding:15px;
-    text-align:center;
-    position:sticky;
-    top:0;
-}
-
-nav a{
-    color:white;
-    text-decoration:none;
-    margin:0 20px;
-    font-weight:bold;
-}
-
-section{
-    padding:60px 10%;
-}
-
-.title{
-    text-align:center;
-    color:#8B4513;
-    margin-bottom:40px;
-    font-size:2.5rem;
-}
-
-.history{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-    gap:25px;
-}
-
-.card{
-    background:white;
-    border-radius:10px;
-    overflow:hidden;
-    box-shadow:0 4px 10px rgba(0,0,0,0.1);
-}
-
-.card img{
-    width:100%;
-    height:220px;
-    object-fit:cover;
-}
-
-.card-content{
-    padding:20px;
-}
-
-.card-content h3{
-    color:#8B4513;
-    margin-bottom:10px;
-}
-
-.timeline{
-    background:white;
-    border-radius:10px;
-    padding:30px;
-    box-shadow:0 4px 10px rgba(0,0,0,0.1);
-}
-
-.timeline ul{
-    list-style:none;
-}
-
-.timeline li{
-    margin-bottom:20px;
-    border-left:4px solid #8B4513;
-    padding-left:15px;
-}
-
-.gallery{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-    gap:15px;
-}
-
-.gallery img{
-    width:100%;
-    border-radius:10px;
-    height:220px;
-    object-fit:cover;
-}
-
-footer{
-    background:#333;
-    color:white;
-    text-align:center;
-    padding:20px;
-}
-</style>
-</head>
-<body>
-
-<header>
-    <h1>Penang Heritage Museum</h1>
-    <p>Discover the Rich History and Cultural Heritage of Penang</p>
-</header>
-
-<nav>
-    <a href="#history">History</a>
-    <a href="#timeline">Timeline</a>
-    <a href="#gallery">Gallery</a>
-</nav>
-
-<section id="history">
-    <h2 class="title">About Penang</h2>
-
-    <div class="history">
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1598275277521-1885382d5237?auto=format&fit=crop&w=800&q=80">
-            <div class="card-content">
-                <h3>Early Settlement</h3>
-                <p>Penang was founded in 1786 by Captain Francis Light and became an important trading port in Southeast Asia.</p>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1600618528240-fb9fc964b853?auto=format&fit=crop&w=800&q=80">
-            <div class="card-content">
-                <h3>Colonial Era</h3>
-                <p>Penang flourished under British administration and developed into a multicultural trading hub.</p>
-            </div>
-        </div>
-
-        <div class="card">
-            <img src="https://images.unsplash.com/photo-1617878227827-8360231f7f03?auto=format&fit=crop&w=800&q=80">
-            <div class="card-content">
-                <h3>Modern Penang</h3>
-                <p>Today Penang is famous for its heritage sites, food culture, tourism and technology industries.</p>
-            </div>
-        </div>
-
-    </div>
-</section>
-
-<section id="timeline">
-    <h2 class="title">Historical Timeline</h2>
-
-    <div class="timeline">
-        <ul>
-            <li><strong>1786:</strong> Captain Francis Light established Penang as a British trading post.</li>
-            <li><strong>1805:</strong> Penang became the fourth presidency of British India.</li>
-            <li><strong>1826:</strong> Penang joined Malacca and Singapore to form the Straits Settlements.</li>
-            <li><strong>1941:</strong> Japanese forces occupied Penang during World War II.</li>
-            <li><strong>1957:</strong> Malaya gained independence from British rule.</li>
-            <li><strong>2008:</strong> George Town was recognized as a UNESCO World Heritage Site.</li>
-        </ul>
-    </div>
-</section>
-
-<section id="gallery">
-    <h2 class="title">Museum Gallery</h2>
-
-    <div class="gallery">
-        <img src="https://images.unsplash.com/photo-1565967511849-76a60a516170?auto=format&fit=crop&w=800&q=80">
-        <img src="https://images.unsplash.com/photo-1516483638261-f4dbaf036963?auto=format&fit=crop&w=800&q=80">
-        <img src="https://images.unsplash.com/photo-1524492412937-b28074a5d7da?auto=format&fit=crop&w=800&q=80">
-        <img src="https://images.unsplash.com/photo-1511818966892-d7d671e672a2?auto=format&fit=crop&w=800&q=80">
-    </div>
-</section>
-
-<footer>
-    <p>© 2026 Penang Heritage Museum | Preserving History for Future Generations</p>
-</footer>
-
-</body>
-</html>
