@@ -1,290 +1,111 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Penang Heritage Quest</title>
+import java.util.Scanner;
 
-<style>
+public class PenangMuseum {
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:'Segoe UI',sans-serif;
+    public static void main(String[] args) {
+
+        Scanner input = new Scanner(System.in);
+        int choice;
+        int totalVisitors = 0;
+
+        do {
+
+            System.out.println("\n======================================");
+            System.out.println("       PENANG HERITAGE MUSEUM");
+            System.out.println("======================================");
+            System.out.println("1. Home");
+            System.out.println("2. History");
+            System.out.println("3. Gallery");
+            System.out.println("4. Ticket Booking");
+            System.out.println("5. Visitor Statistics");
+            System.out.println("6. About");
+            System.out.println("7. Exit");
+            System.out.println("======================================");
+            System.out.print("Enter your choice: ");
+
+            choice = input.nextInt();
+
+            switch (choice) {
+
+                case 1:
+                    System.out.println("\n========== HOME ==========");
+                    System.out.println("Welcome to Penang Heritage Museum!");
+                    System.out.println("Explore the history and culture of Penang.");
+                    break;
+
+                case 2:
+                    System.out.println("\n========== HISTORY ==========");
+                    System.out.println("1786 - Captain Francis Light established Penang.");
+                    System.out.println("1826 - Penang joined the Straits Settlements.");
+                    System.out.println("1941 - Japanese Occupation during World War II.");
+                    System.out.println("1957 - Independence of Malaya.");
+                    System.out.println("2008 - George Town became a UNESCO World Heritage Site.");
+                    break;
+
+                case 3:
+                    System.out.println("\n========== GALLERY ==========");
+                    System.out.println("1. Historical Artifacts");
+                    System.out.println("2. Colonial Documents");
+                    System.out.println("3. Traditional Costumes");
+                    System.out.println("4. Old Photographs");
+                    System.out.println("5. Cultural Exhibitions");
+                    break;
+
+                case 4:
+
+                    input.nextLine();
+
+                    System.out.println("\n========== TICKET BOOKING ==========");
+
+                    System.out.print("Visitor Name: ");
+                    String name = input.nextLine();
+
+                    System.out.print("Phone Number: ");
+                    String phone = input.nextLine();
+
+                    System.out.print("Number of Adult Tickets (RM20): ");
+                    int adult = input.nextInt();
+
+                    System.out.print("Number of Child Tickets (RM10): ");
+                    int child = input.nextInt();
+
+                    double totalPrice = (adult * 20) + (child * 10);
+
+                    totalVisitors += adult + child;
+
+                    System.out.println("\n========== RECEIPT ==========");
+                    System.out.println("Visitor Name : " + name);
+                    System.out.println("Phone Number : " + phone);
+                    System.out.println("Adult Tickets: " + adult);
+                    System.out.println("Child Tickets: " + child);
+                    System.out.println("-----------------------------");
+                    System.out.println("Total Amount : RM " + totalPrice);
+                    System.out.println("Booking Successful!");
+                    break;
+
+                case 5:
+                    System.out.println("\n========== VISITOR STATISTICS ==========");
+                    System.out.println("Total Visitors Registered: " + totalVisitors);
+                    break;
+
+                case 6:
+                    System.out.println("\n========== ABOUT ==========");
+                    System.out.println("Penang Heritage Museum");
+                    System.out.println("Location : George Town, Penang");
+                    System.out.println("Mission  : Preserve Penang's history and culture.");
+                    System.out.println("Opening Hours : 9 AM - 6 PM");
+                    break;
+
+                case 7:
+                    System.out.println("\nThank you for visiting Penang Heritage Museum!");
+                    break;
+
+                default:
+                    System.out.println("Invalid choice! Please try again.");
+            }
+
+        } while (choice != 7);
+
+        input.close();
+    }
 }
-
-body{
-background:#0a0a0a;
-color:white;
-overflow-x:hidden;
-}
-
-header{
-height:100vh;
-display:flex;
-justify-content:center;
-align-items:center;
-flex-direction:column;
-background:
-linear-gradient(rgba(0,0,0,.75),rgba(0,0,0,.75)),
-url("https://images.unsplash.com/photo-1511512578047-dfb367046420?w=1920");
-background-size:cover;
-background-position:center;
-}
-
-header h1{
-font-size:90px;
-color:#00ffff;
-text-shadow:0 0 30px cyan;
-letter-spacing:4px;
-}
-
-header p{
-font-size:25px;
-margin:20px;
-color:#ddd;
-}
-
-button{
-padding:18px 50px;
-background:#00ffff;
-border:none;
-border-radius:40px;
-font-size:20px;
-font-weight:bold;
-cursor:pointer;
-transition:.5s;
-}
-
-button:hover{
-transform:scale(1.1);
-box-shadow:0 0 40px cyan;
-}
-
-.title{
-text-align:center;
-font-size:50px;
-margin:80px 0 40px;
-color:#00ffff;
-text-shadow:0 0 15px cyan;
-}
-
-.container{
-width:90%;
-margin:auto;
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-gap:30px;
-}
-
-.card{
-background:#111827;
-padding:30px;
-border-radius:25px;
-transition:.5s;
-border:2px solid #222;
-}
-
-.card:hover{
-transform:translateY(-15px);
-box-shadow:0 0 30px cyan;
-border-color:#00ffff;
-}
-
-.card h2{
-color:#00ffff;
-margin-bottom:15px;
-}
-
-.card p{
-line-height:1.8;
-color:#ddd;
-}
-
-.timeline{
-
-width:90%;
-margin:auto;
-}
-
-.event{
-background:#161616;
-padding:25px;
-margin-bottom:20px;
-border-left:5px solid cyan;
-border-radius:15px;
-transition:.5s;
-}
-
-.event:hover{
-transform:translateX(20px);
-box-shadow:0 0 25px cyan;
-}
-
-.achievement{
-
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
-gap:25px;
-width:90%;
-margin:auto;
-
-}
-
-.badge{
-background:#111827;
-padding:30px;
-border-radius:20px;
-text-align:center;
-transition:.5s;
-}
-
-.badge:hover{
-box-shadow:0 0 25px gold;
-transform:scale(1.05);
-}
-
-.badge h1{
-font-size:60px;
-}
-
-footer{
-margin-top:100px;
-background:#111;
-padding:40px;
-text-align:center;
-}
-
-</style>
-</head>
-<body>
-
-<header>
-
-<h1>PENANG HERITAGE QUEST</h1>
-
-<p>Explore History Like A Legendary Adventure</p>
-
-<button>START GAME</button>
-
-</header>
-
-<h1 class="title">🎮 STORY MODE</h1>
-
-<div class="container">
-
-<div class="card">
-<h2>LEVEL 1 : THE FOUNDING OF PENANG</h2>
-
-<p>
-Captain Francis Light established Penang in 1786 and transformed it into an important trading port.
-</p>
-
-</div>
-
-<div class="card">
-
-<h2>LEVEL 2 : STRAITS SETTLEMENTS</h2>
-
-<p>
-Penang joined Malacca and Singapore to form the Straits Settlements under British rule.
-</p>
-
-</div>
-
-<div class="card">
-
-<h2>LEVEL 3 : WORLD WAR II</h2>
-
-<p>
-Japanese occupation during 1941 changed the history and development of Penang.
-</p>
-
-</div>
-
-<div class="card">
-
-<h2>LEVEL 4 : MODERN PENANG</h2>
-
-<p>
-George Town became a UNESCO World Heritage Site in 2008 and remains one of Malaysia's most famous destinations.
-</p>
-
-</div>
-
-</div>
-
-<h1 class="title">📜 QUEST TIMELINE</h1>
-
-<div class="timeline">
-
-<div class="event">
-<h2>1786</h2>
-<p>Captain Francis Light founded Penang.</p>
-</div>
-
-<div class="event">
-<h2>1826</h2>
-<p>Formation of the Straits Settlements.</p>
-</div>
-
-<div class="event">
-<h2>1941</h2>
-<p>Japanese Occupation during World War II.</p>
-</div>
-
-<div class="event">
-<h2>1957</h2>
-<p>Independence of Malaya.</p>
-</div>
-
-<div class="event">
-<h2>2008</h2>
-<p>George Town became a UNESCO World Heritage Site.</p>
-</div>
-
-</div>
-
-<h1 class="title">🏆 ACHIEVEMENTS</h1>
-
-<div class="achievement">
-
-<div class="badge">
-<h1>🏆</h1>
-<h2>History Master</h2>
-<p>Complete all history levels.</p>
-</div>
-
-<div class="badge">
-<h1>⚔️</h1>
-<h2>War Survivor</h2>
-<p>Learn about World War II.</p>
-</div>
-
-<div class="badge">
-<h1>🌎</h1>
-<h2>Heritage Explorer</h2>
-<p>Discover Penang culture.</p>
-</div>
-
-<div class="badge">
-<h1>👑</h1>
-<h2>Legendary Visitor</h2>
-<p>Unlock every achievement.</p>
-</div>
-
-</div>
-
-<footer>
-
-<h2>Penang Heritage Museum</h2>
-
-<p>
-Preserving History Through Interactive Experience
-</p>
-
-</footer>
-
-</body>
-</html>
