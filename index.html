@@ -1,174 +1,93 @@
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.*;
+import java.util.Scanner;
 
-public class PenangMuseumSystem extends JFrame implements ActionListener {
-
-    JMenuBar menuBar;
-    JMenu menu;
-    JMenuItem homeItem, historyItem, galleryItem, ticketItem, aboutItem, exitItem;
-
-    JTextArea displayArea;
-
-    public PenangMuseumSystem() {
-
-        setTitle("Penang Heritage Museum");
-        setSize(900, 600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
-
-        menuBar = new JMenuBar();
-
-        menu = new JMenu("Menu");
-
-        homeItem = new JMenuItem("Home");
-        historyItem = new JMenuItem("History");
-        galleryItem = new JMenuItem("Gallery");
-        ticketItem = new JMenuItem("Book Ticket");
-        aboutItem = new JMenuItem("About");
-        exitItem = new JMenuItem("Exit");
-
-        homeItem.addActionListener(this);
-        historyItem.addActionListener(this);
-        galleryItem.addActionListener(this);
-        ticketItem.addActionListener(this);
-        aboutItem.addActionListener(this);
-        exitItem.addActionListener(this);
-
-        menu.add(homeItem);
-        menu.add(historyItem);
-        menu.add(galleryItem);
-        menu.add(ticketItem);
-        menu.add(aboutItem);
-        menu.add(exitItem);
-
-        menuBar.add(menu);
-
-        setJMenuBar(menuBar);
-
-        JLabel title = new JLabel("PENANG HERITAGE MUSEUM", JLabel.CENTER);
-        title.setFont(new Font("Arial", Font.BOLD, 30));
-
-        displayArea = new JTextArea();
-        displayArea.setFont(new Font("Arial", Font.PLAIN, 16));
-        displayArea.setEditable(false);
-
-        displayArea.setText(
-                "WELCOME TO PENANG HERITAGE MUSEUM\n\n" +
-                "Explore the rich history and culture of Penang.\n\n" +
-                "Use the menu above to navigate through the museum information."
-        );
-
-        JScrollPane scrollPane = new JScrollPane(displayArea);
-
-        add(title, BorderLayout.NORTH);
-        add(scrollPane, BorderLayout.CENTER);
-
-        setVisible(true);
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent e) {
-
-        if (e.getSource() == homeItem) {
-
-            displayArea.setText(
-                    "WELCOME TO PENANG HERITAGE MUSEUM\n\n" +
-                    "The museum preserves the history, culture and heritage of Penang.\n\n" +
-                    "Visitors can learn about historical events, architecture and local traditions."
-            );
-        }
-
-        else if (e.getSource() == historyItem) {
-
-            displayArea.setText(
-                    "PENANG HISTORY\n\n" +
-                    "1786 - Captain Francis Light established Penang.\n\n" +
-                    "1805 - Penang became a Presidency of British India.\n\n" +
-                    "1826 - Joined the Straits Settlements.\n\n" +
-                    "1941 - Japanese Occupation during World War II.\n\n" +
-                    "1957 - Malaya gained independence.\n\n" +
-                    "2008 - George Town became a UNESCO World Heritage Site."
-            );
-        }
-
-        else if (e.getSource() == galleryItem) {
-
-            displayArea.setText(
-                    "MUSEUM GALLERY\n\n" +
-                    "• Historical Artifacts\n" +
-                    "• Colonial Documents\n" +
-                    "• Traditional Costumes\n" +
-                    "• Heritage Buildings\n" +
-                    "• Old Photographs of Penang\n" +
-                    "• Cultural Exhibitions"
-            );
-        }
-
-        else if (e.getSource() == ticketItem) {
-
-            JTextField nameField = new JTextField();
-            JTextField phoneField = new JTextField();
-
-            Object[] message = {
-                    "Visitor Name:", nameField,
-                    "Phone Number:", phoneField
-            };
-
-            int option = JOptionPane.showConfirmDialog(
-                    this,
-                    message,
-                    "Museum Ticket Booking",
-                    JOptionPane.OK_CANCEL_OPTION
-            );
-
-            if (option == JOptionPane.OK_OPTION) {
-
-                String name = nameField.getText();
-                String phone = phoneField.getText();
-
-                JOptionPane.showMessageDialog(
-                        this,
-                        "Booking Successful!\n\n" +
-                                "Visitor: " + name +
-                                "\nPhone: " + phone +
-                                "\n\nTicket Reserved."
-                );
-            }
-        }
-
-        else if (e.getSource() == aboutItem) {
-
-            displayArea.setText(
-                    "ABOUT PENANG HERITAGE MUSEUM\n\n" +
-                    "Mission:\n" +
-                    "To preserve and promote Penang's rich cultural heritage.\n\n" +
-                    "Vision:\n" +
-                    "To become a leading historical education center in Malaysia.\n\n" +
-                    "Location:\n" +
-                    "George Town, Penang, Malaysia."
-            );
-        }
-
-        else if (e.getSource() == exitItem) {
-
-            int confirm = JOptionPane.showConfirmDialog(
-                    this,
-                    "Are you sure you want to exit?",
-                    "Exit",
-                    JOptionPane.YES_NO_OPTION
-            );
-
-            if (confirm == JOptionPane.YES_OPTION) {
-                System.exit(0);
-            }
-        }
-    }
+public class PenangMuseum {
 
     public static void main(String[] args) {
 
-        SwingUtilities.invokeLater(() -> {
-            new PenangMuseumSystem();
-        });
+        Scanner input = new Scanner(System.in);
+        int choice;
+
+        do {
+            System.out.println("\n=================================");
+            System.out.println("     PENANG HERITAGE MUSEUM");
+            System.out.println("=================================");
+            System.out.println("1. Home");
+            System.out.println("2. History");
+            System.out.println("3. Gallery");
+            System.out.println("4. Ticket Booking");
+            System.out.println("5. About");
+            System.out.println("6. Exit");
+            System.out.print("Enter your choice: ");
+
+            choice = input.nextInt();
+
+            switch (choice) {
+
+                case 1:
+                    System.out.println("\n----- HOME -----");
+                    System.out.println("Welcome to Penang Heritage Museum.");
+                    System.out.println("Explore the history and culture of Penang.");
+                    break;
+
+                case 2:
+                    System.out.println("\n----- HISTORY -----");
+                    System.out.println("1786 - Captain Francis Light established Penang.");
+                    System.out.println("1826 - Penang joined the Straits Settlements.");
+                    System.out.println("1941 - Japanese occupation during World War II.");
+                    System.out.println("1957 - Independence of Malaya.");
+                    System.out.println("2008 - George Town became a UNESCO World Heritage Site.");
+                    break;
+
+                case 3:
+                    System.out.println("\n----- GALLERY -----");
+                    System.out.println("1. Historical Artifacts");
+                    System.out.println("2. Colonial Documents");
+                    System.out.println("3. Traditional Costumes");
+                    System.out.println("4. Old Photographs");
+                    System.out.println("5. Cultural Exhibitions");
+                    break;
+
+                case 4:
+                    input.nextLine();
+
+                    System.out.println("\n----- TICKET BOOKING -----");
+
+                    System.out.print("Enter Visitor Name: ");
+                    String name = input.nextLine();
+
+                    System.out.print("Enter Phone Number: ");
+                    String phone = input.nextLine();
+
+                    System.out.print("Number of Tickets: ");
+                    int tickets = input.nextInt();
+
+                    double price = tickets * 20.0;
+
+                    System.out.println("\n===== BOOKING RECEIPT =====");
+                    System.out.println("Visitor Name : " + name);
+                    System.out.println("Phone Number : " + phone);
+                    System.out.println("Tickets      : " + tickets);
+                    System.out.println("Total Price  : RM " + price);
+                    System.out.println("Booking Successful!");
+                    break;
+
+                case 5:
+                    System.out.println("\n----- ABOUT -----");
+                    System.out.println("Penang Heritage Museum");
+                    System.out.println("Location: George Town, Penang");
+                    System.out.println("Mission: Preserve Penang's history and culture.");
+                    break;
+
+                case 6:
+                    System.out.println("Thank you for visiting Penang Heritage Museum.");
+                    break;
+
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+
+        } while (choice != 6);
+
+        input.close();
     }
 }
