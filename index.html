@@ -1,55 +1,146 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Employee Login System</title>
+  <title>High Spec Laptop</title>
+
   <style>
     body {
-      font-family: Arial;
-      background: #f2f2f2;
+      margin: 0;
+      height: 100vh;
+      background: #111;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      font-family: Arial;
+      color: white;
     }
 
-    .box {
-      background: white;
-      padding: 20px;
-      border-radius: 10px;
+    .container {
+      text-align: center;
+    }
+
+    /* Laptop */
+    .laptop {
       width: 300px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.2);
+      height: 180px;
+      background: #222;
+      border-radius: 10px;
+      position: relative;
+      margin: auto;
+      transition: 1s ease;
+      overflow: hidden;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
     }
 
-    input {
+    .screen {
       width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #0f0f0f, #1f1f1f);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: 1s;
+    }
+
+    .keyboard {
+      position: absolute;
+      bottom: -120px;
+      left: 0;
+      width: 100%;
+      height: 120px;
+      background: #333;
+      border-radius: 10px;
+      transition: 1s;
       padding: 10px;
-      margin: 8px 0;
+      box-sizing: border-box;
+    }
+
+    .keys {
+      display: grid;
+      grid-template-columns: repeat(10, 1fr);
+      gap: 5px;
+    }
+
+    .key {
+      height: 10px;
+      background: #555;
+      border-radius: 3px;
+    }
+
+    /* OPEN STATE */
+    .open .screen {
+      transform: translateY(-60px);
+    }
+
+    .open .keyboard {
+      bottom: -10px;
+    }
+
+    .specs {
+      display: none;
+      margin-top: 20px;
+      padding: 15px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 10px;
+    }
+
+    .open + .specs {
+      display: block;
     }
 
     button {
-      width: 100%;
-      padding: 10px;
-      background: blue;
-      color: white;
+      margin-top: 20px;
+      padding: 10px 20px;
       border: none;
+      background: cyan;
+      color: black;
       cursor: pointer;
+      font-weight: bold;
+      border-radius: 5px;
     }
 
     button:hover {
-      background: darkblue;
+      background: #00ffffaa;
     }
   </style>
 </head>
 
 <body>
 
-  <div class="box">
-    <h2>Employee Login</h2>
-    <input type="text" placeholder="Username">
-    <input type="password" placeholder="Password">
-    <button>Login</button>
-    <p>New user? Register page coming soon</p>
+  <div class="container">
+
+    <div class="laptop" id="laptop">
+      <div class="screen">
+        💻 HIGH SPEC LAPTOP
+      </div>
+
+      <div class="keyboard">
+        <div class="keys">
+          <div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div>
+          <div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div><div class="key"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="specs" id="specs">
+      <h3>🔥 Interior Specs</h3>
+      <p>💠 CPU: Intel i9 14th Gen</p>
+      <p>💠 GPU: RTX 4090</p>
+      <p>💠 RAM: 64GB DDR5</p>
+      <p>💠 Storage: 2TB NVMe SSD</p>
+      <p>💠 Cooling: Liquid Cooling System</p>
+    </div>
+
+    <button onclick="toggleLaptop()">Open Laptop</button>
+
   </div>
+
+  <script>
+    function toggleLaptop() {
+      document.getElementById("laptop").classList.toggle("open");
+      document.getElementById("specs").classList.toggle("open");
+    }
+  </script>
 
 </body>
 </html>
