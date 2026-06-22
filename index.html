@@ -1,269 +1,208 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>MSI Gaming System</title>
+  <title>3D Gaming Laptop Showcase</title>
 
   <style>
     body {
       margin: 0;
-      height: 100vh;
-      background: radial-gradient(circle at center, #000, #0a0000);
+      overflow: hidden;
+      background: #000;
       font-family: Arial;
-      overflow: hidden;
-      color: white;
     }
 
-    /* ===== BOOT SCREEN ===== */
-    #boot {
+    /* LEFT UI PANEL */
+    #panel {
       position: absolute;
-      width: 100%;
-      height: 100%;
-      background: black;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      flex-direction: column;
+      top: 20px;
+      left: 20px;
       z-index: 10;
-    }
-
-    .logo {
-      font-size: 30px;
-      color: red;
-      letter-spacing: 5px;
-      text-shadow: 0 0 20px red;
-      animation: flicker 1.2s infinite;
-    }
-
-    @keyframes flicker {
-      0%,100% { opacity: 1; }
-      50% { opacity: 0.3; }
-    }
-
-    .bar {
-      width: 260px;
-      height: 4px;
-      background: #222;
-      margin-top: 20px;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-
-    .fill {
-      width: 0%;
-      height: 100%;
-      background: red;
-      box-shadow: 0 0 15px red;
-      animation: load 2.5s forwards;
-    }
-
-    @keyframes load {
-      0% { width: 0%; }
-      100% { width: 100%; }
-    }
-
-    /* ===== SCENE ===== */
-    .scene {
-      perspective: 1200px;
-      width: 100%;
-      height: 100%;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    }
-
-    /* ===== LAPTOP ===== */
-    .laptop {
-      width: 360px;
-      height: 230px;
-      position: relative;
-      transform-style: preserve-3d;
-      transform: rotateX(25deg) rotateY(-15deg);
-      animation: float 3s infinite ease-in-out;
-    }
-
-    @keyframes float {
-      0%,100% { transform: rotateX(25deg) rotateY(-15deg); }
-      50% { transform: rotateX(28deg) rotateY(10deg); }
-    }
-
-    .screen {
-      width: 100%;
-      height: 100%;
-      background: #0a0a0a;
-      border-radius: 10px;
-      box-shadow: 0 0 20px red;
-      position: relative;
-      overflow: hidden;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      transition: 1s;
-    }
-
-    .screen::before {
-      content: "";
-      position: absolute;
-      inset: 0;
-      border-radius: 10px;
-      border: 2px solid red;
-      box-shadow: 0 0 20px red;
-    }
-
-    .base {
-      width: 100%;
-      height: 90px;
-      background: #111;
-      position: absolute;
-      bottom: -90px;
-      border-radius: 10px;
-      box-shadow: 0 0 20px red;
-    }
-
-    /* ===== UI PANEL ===== */
-    .ui {
-      display: none;
-      position: absolute;
-      text-align: center;
-      width: 80%;
-    }
-
-    .ui h1 {
-      color: red;
-      text-shadow: 0 0 10px red;
-    }
-
-    /* ===== SPEC PANEL ===== */
-    .specs {
-      margin-top: 20px;
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 15px;
+      color: white;
+      width: 280px;
     }
 
     .card {
       background: rgba(255,0,0,0.08);
       border: 1px solid red;
       padding: 10px;
+      margin-top: 10px;
       border-radius: 10px;
       box-shadow: 0 0 10px red;
-      text-align: left;
     }
 
-    .card h3 {
-      margin: 0;
+    h2 {
       color: red;
-    }
-
-    .barStat {
-      height: 6px;
-      background: #222;
-      border-radius: 5px;
-      overflow: hidden;
-      margin-top: 5px;
-    }
-
-    .fillStat {
-      height: 100%;
-      background: red;
+      text-shadow: 0 0 10px red;
     }
 
     button {
-      margin-top: 20px;
-      padding: 10px 20px;
-      background: red;
+      margin-top: 8px;
+      width: 100%;
+      padding: 8px;
       border: none;
-      color: white;
       cursor: pointer;
       font-weight: bold;
     }
 
-    button:hover {
-      box-shadow: 0 0 15px red;
+    .msi { background: red; color: white; }
+    .rog { background: cyan; color: black; }
+    .alien { background: lime; color: black; }
+
+    /* SPEC PANEL */
+    #specBox {
+      position: absolute;
+      right: 20px;
+      top: 20px;
+      width: 300px;
+      background: rgba(0,0,0,0.7);
+      border: 1px solid red;
+      padding: 15px;
+      color: white;
+      border-radius: 10px;
+      box-shadow: 0 0 20px red;
+      display: none;
     }
+
+    #specBox h3 {
+      color: red;
+      margin-top: 0;
+    }
+
   </style>
 </head>
 
 <body>
 
-<!-- BOOT -->
-<div id="boot">
-  <div class="logo">MSI DRAGON SYSTEM</div>
-  <div class="bar"><div class="fill"></div></div>
-</div>
+<!-- UI PANEL -->
+<div id="panel">
+  <h2>💻 Gaming Laptops</h2>
 
-<!-- LAPTOP -->
-<div class="scene">
-  <div class="laptop">
-    <div class="screen">🔥 GAMING MODE ACTIVE</div>
-    <div class="base"></div>
+  <button class="msi" onclick="showSpecs('msi')">MSI Titan</button>
+  <button class="rog" onclick="showSpecs('rog')">ASUS ROG</button>
+  <button class="alien" onclick="showSpecs('alien')">Alienware X16</button>
+
+  <div class="card">
+    Click a laptop to view full specs
   </div>
 </div>
 
-<!-- DASHBOARD -->
-<div class="ui" id="ui">
+<!-- SPEC BOX -->
+<div id="specBox"></div>
 
-  <h1>MSI GAMING SYSTEM DASHBOARD</h1>
-
-  <div class="specs">
-
-    <div class="card">
-      <h3>CPU</h3>
-      Intel i9-14900HX
-    </div>
-
-    <div class="card">
-      <h3>GPU</h3>
-      NVIDIA RTX 4090 Laptop GPU
-    </div>
-
-    <div class="card">
-      <h3>RAM</h3>
-      64GB DDR5 6000MHz
-    </div>
-
-    <div class="card">
-      <h3>Storage</h3>
-      2TB NVMe Gen4 SSD
-    </div>
-
-    <div class="card">
-      <h3>GPU Usage</h3>
-      <div class="barStat"><div class="fillStat" style="width: 78%"></div></div>
-    </div>
-
-    <div class="card">
-      <h3>CPU Temp</h3>
-      <div class="barStat"><div class="fillStat" style="width: 65%"></div></div>
-    </div>
-
-    <div class="card">
-      <h3>FPS Mode</h3>
-      240 FPS (Ultra Performance)
-    </div>
-
-    <div class="card">
-      <h3>Status</h3>
-      SYSTEM OPTIMIZED ✔
-    </div>
-
-  </div>
-
-  <button onclick="alert('Launching MSI Gaming Engine...')">
-    START GAME MODE
-  </button>
-
-</div>
-
-<audio id="bootSound">
-  <source src="https://www.soundjay.com/buttons/sounds/button-09.mp3">
-</audio>
+<!-- THREE.JS -->
+<script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
 
 <script>
-  setTimeout(() => {
-    document.getElementById("boot").style.display = "none";
-    document.getElementById("ui").style.display = "block";
-    document.getElementById("bootSound").play();
-  }, 2800);
+let scene = new THREE.Scene();
+scene.fog = new THREE.Fog(0x000000, 5, 20);
+
+let camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
+camera.position.z = 8;
+
+let renderer = new THREE.WebGLRenderer({antialias:true});
+renderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(renderer.domElement);
+
+// LIGHT
+let light = new THREE.PointLight(0xffffff, 2);
+light.position.set(5,5,5);
+scene.add(light);
+
+// CREATE LAPTOP FUNCTION
+function laptop(color, x) {
+  let geo = new THREE.BoxGeometry(2.5, 0.2, 1.8);
+  let mat = new THREE.MeshStandardMaterial({
+    color: color,
+    emissive: color,
+    emissiveIntensity: 0.5
+  });
+
+  let mesh = new THREE.Mesh(geo, mat);
+  mesh.position.x = x;
+  return mesh;
+}
+
+// LAPTOPS
+let MSI = laptop(0xff0000, -4);
+let ROG = laptop(0x00ffff, 0);
+let ALIEN = laptop(0x00ff00, 4);
+
+scene.add(MSI);
+scene.add(ROG);
+scene.add(ALIEN);
+
+// ANIMATION
+function animate(){
+  requestAnimationFrame(animate);
+
+  MSI.rotation.y += 0.01;
+  ROG.rotation.y += 0.01;
+  ALIEN.rotation.y += 0.01;
+
+  renderer.render(scene, camera);
+}
+animate();
+
+// RESIZE
+window.addEventListener("resize", ()=>{
+  camera.aspect = window.innerWidth/window.innerHeight;
+  camera.updateProjectionMatrix();
+  renderer.setSize(window.innerWidth, window.innerHeight);
+});
+
+// SPEC DATABASE (REAL DETAIL)
+const specs = {
+  msi: {
+    name: "MSI Titan GT77",
+    cpu: "Intel i9-14900HX (24-Core)",
+    gpu: "RTX 4090 16GB",
+    ram: "64GB DDR5 6000MHz",
+    storage: "2TB NVMe Gen4 SSD",
+    display: "17.3\" 4K 144Hz",
+    cooling: "Cooler Boost Titan",
+    fps: "200–300 FPS (Ultra Settings)"
+  },
+
+  rog: {
+    name: "ASUS ROG Strix Scar 18",
+    cpu: "Intel i9-14900HX",
+    gpu: "RTX 4090 16GB",
+    ram: "32–64GB DDR5",
+    storage: "2TB NVMe SSD",
+    display: "18\" QHD+ 240Hz",
+    cooling: "Tri-Fan + Liquid Metal",
+    fps: "180–280 FPS"
+  },
+
+  alien: {
+    name: "Alienware X16",
+    cpu: "Intel i9-13900HK",
+    gpu: "RTX 4080 / 4090",
+    ram: "32GB DDR5",
+    storage: "1–2TB SSD",
+    display: "16\" QHD+ 240Hz",
+    cooling: "Advanced Cryo-tech",
+    fps: "160–250 FPS"
+  }
+};
+
+// SHOW SPEC FUNCTION
+function showSpecs(type){
+  let s = specs[type];
+
+  document.getElementById("specBox").style.display = "block";
+
+  document.getElementById("specBox").innerHTML = `
+    <h3>${s.name}</h3>
+    <p><b>CPU:</b> ${s.cpu}</p>
+    <p><b>GPU:</b> ${s.gpu}</p>
+    <p><b>RAM:</b> ${s.ram}</p>
+    <p><b>Storage:</b> ${s.storage}</p>
+    <p><b>Display:</b> ${s.display}</p>
+    <p><b>Cooling:</b> ${s.cooling}</p>
+    <p><b>Performance:</b> ${s.fps}</p>
+  `;
+}
 </script>
 
 </body>
