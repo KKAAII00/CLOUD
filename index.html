@@ -1,23 +1,20 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Gaming Laptop Boot System</title>
+  <title>MSI Gaming System</title>
 
   <style>
     body {
       margin: 0;
       height: 100vh;
-      background: radial-gradient(circle, #000, #111);
-      display: flex;
-      justify-content: center;
-      align-items: center;
+      background: radial-gradient(circle at center, #000, #0a0000);
       font-family: Arial;
       overflow: hidden;
       color: white;
     }
 
     /* ===== BOOT SCREEN ===== */
-    #bootScreen {
+    #boot {
       position: absolute;
       width: 100%;
       height: 100%;
@@ -29,20 +26,34 @@
       z-index: 10;
     }
 
-    .loader {
-      width: 200px;
-      height: 4px;
-      background: #222;
-      margin-top: 20px;
-      overflow: hidden;
-      border-radius: 5px;
+    .logo {
+      font-size: 30px;
+      color: red;
+      letter-spacing: 5px;
+      text-shadow: 0 0 20px red;
+      animation: flicker 1.2s infinite;
+    }
+
+    @keyframes flicker {
+      0%,100% { opacity: 1; }
+      50% { opacity: 0.3; }
     }
 
     .bar {
+      width: 260px;
+      height: 4px;
+      background: #222;
+      margin-top: 20px;
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .fill {
       width: 0%;
       height: 100%;
-      background: cyan;
-      animation: load 3s forwards;
+      background: red;
+      box-shadow: 0 0 15px red;
+      animation: load 2.5s forwards;
     }
 
     @keyframes load {
@@ -52,67 +63,60 @@
 
     /* ===== SCENE ===== */
     .scene {
-      perspective: 1000px;
-    }
-
-    /* ===== LAPTOP 3D ===== */
-    .laptop {
-      width: 320px;
-      height: 200px;
-      transform-style: preserve-3d;
-      transform: rotateX(20deg) rotateY(0deg);
-      animation: float 3s infinite ease-in-out;
-      position: relative;
-    }
-
-    @keyframes float {
-      0%, 100% { transform: rotateX(20deg) rotateY(-10deg); }
-      50% { transform: rotateX(25deg) rotateY(10deg); }
-    }
-
-    /* SCREEN */
-    .screen {
+      perspective: 1200px;
       width: 100%;
       height: 100%;
-      background: #111;
-      border-radius: 10px;
-      box-shadow:
-        0 0 20px cyan,
-        0 0 40px magenta,
-        0 0 60px blue;
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 18px;
-      position: relative;
     }
 
-    /* RGB glow border */
-    .screen::after {
+    /* ===== LAPTOP ===== */
+    .laptop {
+      width: 360px;
+      height: 230px;
+      position: relative;
+      transform-style: preserve-3d;
+      transform: rotateX(25deg) rotateY(-15deg);
+      animation: float 3s infinite ease-in-out;
+    }
+
+    @keyframes float {
+      0%,100% { transform: rotateX(25deg) rotateY(-15deg); }
+      50% { transform: rotateX(28deg) rotateY(10deg); }
+    }
+
+    .screen {
+      width: 100%;
+      height: 100%;
+      background: #0a0a0a;
+      border-radius: 10px;
+      box-shadow: 0 0 20px red;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      transition: 1s;
+    }
+
+    .screen::before {
       content: "";
       position: absolute;
       inset: 0;
       border-radius: 10px;
-      border: 2px solid transparent;
-      animation: rgb 3s linear infinite;
+      border: 2px solid red;
+      box-shadow: 0 0 20px red;
     }
 
-    @keyframes rgb {
-      0% { box-shadow: 0 0 10px red; }
-      33% { box-shadow: 0 0 10px lime; }
-      66% { box-shadow: 0 0 10px cyan; }
-      100% { box-shadow: 0 0 10px red; }
-    }
-
-    /* KEYBOARD */
     .base {
       width: 100%;
-      height: 80px;
-      background: #222;
+      height: 90px;
+      background: #111;
       position: absolute;
-      bottom: -80px;
+      bottom: -90px;
       border-radius: 10px;
-      box-shadow: 0 0 20px purple;
+      box-shadow: 0 0 20px red;
     }
 
     /* ===== UI PANEL ===== */
@@ -120,66 +124,146 @@
       display: none;
       position: absolute;
       text-align: center;
+      width: 80%;
     }
 
     .ui h1 {
-      color: cyan;
-      text-shadow: 0 0 10px cyan;
+      color: red;
+      text-shadow: 0 0 10px red;
+    }
+
+    /* ===== SPEC PANEL ===== */
+    .specs {
+      margin-top: 20px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+    }
+
+    .card {
+      background: rgba(255,0,0,0.08);
+      border: 1px solid red;
+      padding: 10px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px red;
+      text-align: left;
+    }
+
+    .card h3 {
+      margin: 0;
+      color: red;
+    }
+
+    .barStat {
+      height: 6px;
+      background: #222;
+      border-radius: 5px;
+      overflow: hidden;
+      margin-top: 5px;
+    }
+
+    .fillStat {
+      height: 100%;
+      background: red;
     }
 
     button {
       margin-top: 20px;
       padding: 10px 20px;
+      background: red;
       border: none;
-      background: cyan;
+      color: white;
       cursor: pointer;
       font-weight: bold;
+    }
+
+    button:hover {
+      box-shadow: 0 0 15px red;
     }
   </style>
 </head>
 
 <body>
 
-<!-- BOOT SCREEN -->
-<div id="bootScreen">
-  <h1>BOOTING GAMING SYSTEM...</h1>
-  <div class="loader"><div class="bar"></div></div>
+<!-- BOOT -->
+<div id="boot">
+  <div class="logo">MSI DRAGON SYSTEM</div>
+  <div class="bar"><div class="fill"></div></div>
 </div>
 
-<!-- MAIN SCENE -->
+<!-- LAPTOP -->
 <div class="scene">
-
   <div class="laptop">
-    <div class="screen">
-      💻 GAMING LAPTOP ACTIVE
-    </div>
+    <div class="screen">🔥 GAMING MODE ACTIVE</div>
     <div class="base"></div>
   </div>
-
 </div>
 
-<!-- UI -->
+<!-- DASHBOARD -->
 <div class="ui" id="ui">
-  <h1>WELCOME PLAYER</h1>
-  <p>RTX Gaming System Loaded</p>
-  <button onclick="alert('Game Launching...')">Launch Game</button>
+
+  <h1>MSI GAMING SYSTEM DASHBOARD</h1>
+
+  <div class="specs">
+
+    <div class="card">
+      <h3>CPU</h3>
+      Intel i9-14900HX
+    </div>
+
+    <div class="card">
+      <h3>GPU</h3>
+      NVIDIA RTX 4090 Laptop GPU
+    </div>
+
+    <div class="card">
+      <h3>RAM</h3>
+      64GB DDR5 6000MHz
+    </div>
+
+    <div class="card">
+      <h3>Storage</h3>
+      2TB NVMe Gen4 SSD
+    </div>
+
+    <div class="card">
+      <h3>GPU Usage</h3>
+      <div class="barStat"><div class="fillStat" style="width: 78%"></div></div>
+    </div>
+
+    <div class="card">
+      <h3>CPU Temp</h3>
+      <div class="barStat"><div class="fillStat" style="width: 65%"></div></div>
+    </div>
+
+    <div class="card">
+      <h3>FPS Mode</h3>
+      240 FPS (Ultra Performance)
+    </div>
+
+    <div class="card">
+      <h3>Status</h3>
+      SYSTEM OPTIMIZED ✔
+    </div>
+
+  </div>
+
+  <button onclick="alert('Launching MSI Gaming Engine...')">
+    START GAME MODE
+  </button>
+
 </div>
 
-<!-- SOUND (optional mp3 file) -->
 <audio id="bootSound">
-  <source src="https://www.soundjay.com/buttons/sounds/button-16.mp3" type="audio/mpeg">
+  <source src="https://www.soundjay.com/buttons/sounds/button-09.mp3">
 </audio>
 
 <script>
-  // Boot animation
   setTimeout(() => {
-    document.getElementById("bootScreen").style.display = "none";
+    document.getElementById("boot").style.display = "none";
     document.getElementById("ui").style.display = "block";
-
-    // play sound
     document.getElementById("bootSound").play();
-
-  }, 3000);
+  }, 2800);
 </script>
 
 </body>
