@@ -1,93 +1,172 @@
-import java.util.Scanner;
+<!DOCTYPE html>
+<html>
+<head>
+<title>Penang Heritage Quest</title>
 
-public class PenangMuseum {
-
-    public static void main(String[] args) {
-
-        Scanner input = new Scanner(System.in);
-        int choice;
-
-        do {
-            System.out.println("\n=================================");
-            System.out.println("     PENANG HERITAGE MUSEUM");
-            System.out.println("=================================");
-            System.out.println("1. Home");
-            System.out.println("2. History");
-            System.out.println("3. Gallery");
-            System.out.println("4. Ticket Booking");
-            System.out.println("5. About");
-            System.out.println("6. Exit");
-            System.out.print("Enter your choice: ");
-
-            choice = input.nextInt();
-
-            switch (choice) {
-
-                case 1:
-                    System.out.println("\n----- HOME -----");
-                    System.out.println("Welcome to Penang Heritage Museum.");
-                    System.out.println("Explore the history and culture of Penang.");
-                    break;
-
-                case 2:
-                    System.out.println("\n----- HISTORY -----");
-                    System.out.println("1786 - Captain Francis Light established Penang.");
-                    System.out.println("1826 - Penang joined the Straits Settlements.");
-                    System.out.println("1941 - Japanese occupation during World War II.");
-                    System.out.println("1957 - Independence of Malaya.");
-                    System.out.println("2008 - George Town became a UNESCO World Heritage Site.");
-                    break;
-
-                case 3:
-                    System.out.println("\n----- GALLERY -----");
-                    System.out.println("1. Historical Artifacts");
-                    System.out.println("2. Colonial Documents");
-                    System.out.println("3. Traditional Costumes");
-                    System.out.println("4. Old Photographs");
-                    System.out.println("5. Cultural Exhibitions");
-                    break;
-
-                case 4:
-                    input.nextLine();
-
-                    System.out.println("\n----- TICKET BOOKING -----");
-
-                    System.out.print("Enter Visitor Name: ");
-                    String name = input.nextLine();
-
-                    System.out.print("Enter Phone Number: ");
-                    String phone = input.nextLine();
-
-                    System.out.print("Number of Tickets: ");
-                    int tickets = input.nextInt();
-
-                    double price = tickets * 20.0;
-
-                    System.out.println("\n===== BOOKING RECEIPT =====");
-                    System.out.println("Visitor Name : " + name);
-                    System.out.println("Phone Number : " + phone);
-                    System.out.println("Tickets      : " + tickets);
-                    System.out.println("Total Price  : RM " + price);
-                    System.out.println("Booking Successful!");
-                    break;
-
-                case 5:
-                    System.out.println("\n----- ABOUT -----");
-                    System.out.println("Penang Heritage Museum");
-                    System.out.println("Location: George Town, Penang");
-                    System.out.println("Mission: Preserve Penang's history and culture.");
-                    break;
-
-                case 6:
-                    System.out.println("Thank you for visiting Penang Heritage Museum.");
-                    break;
-
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-            }
-
-        } while (choice != 6);
-
-        input.close();
-    }
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Arial;
 }
+
+body{
+background:#0d1117;
+color:white;
+}
+
+header{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+background:linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.7)),
+url("https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=1600");
+background-size:cover;
+}
+
+h1{
+font-size:70px;
+color:#00ffff;
+text-shadow:0 0 20px cyan;
+}
+
+p{
+margin:20px;
+font-size:20px;
+}
+
+button{
+padding:15px 40px;
+font-size:20px;
+background:#00ffff;
+border:none;
+border-radius:10px;
+cursor:pointer;
+}
+
+section{
+padding:60px;
+}
+
+.title{
+text-align:center;
+font-size:40px;
+color:#00ffff;
+margin-bottom:40px;
+}
+
+.container{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+gap:30px;
+}
+
+.card{
+background:#161b22;
+padding:30px;
+border-radius:20px;
+transition:.5s;
+box-shadow:0 0 15px black;
+}
+
+.card:hover{
+transform:translateY(-15px);
+box-shadow:0 0 30px cyan;
+}
+
+.card h2{
+color:#00ffff;
+margin-bottom:15px;
+}
+
+footer{
+text-align:center;
+padding:30px;
+background:#161b22;
+}
+</style>
+
+</head>
+<body>
+
+<header>
+
+<h1>PENANG HERITAGE QUEST</h1>
+
+<p>Explore Penang History Like A Game</p>
+
+<button>START QUEST</button>
+
+</header>
+
+<section>
+
+<h1 class="title">LEVELS</h1>
+
+<div class="container">
+
+<div class="card">
+<h2>🏴 Level 1</h2>
+<h3>Colonial Era</h3>
+<p>
+1786 Captain Francis Light established Penang as a British trading post.
+</p>
+</div>
+
+<div class="card">
+<h2>⚔ Level 2</h2>
+<h3>World War II</h3>
+<p>
+Japanese occupation during 1941 changed Penang's history.
+</p>
+</div>
+
+<div class="card">
+<h2>🏙 Level 3</h2>
+<h3>Modern Penang</h3>
+<p>
+George Town became a UNESCO World Heritage Site in 2008.
+</p>
+</div>
+
+</div>
+
+</section>
+
+<section>
+
+<h1 class="title">ACHIEVEMENTS</h1>
+
+<div class="container">
+
+<div class="card">
+<h2>🏆 Heritage Master</h2>
+<p>Learn all historical events.</p>
+</div>
+
+<div class="card">
+<h2>📜 Timeline Explorer</h2>
+<p>Discover Penang's historical timeline.</p>
+</div>
+
+<div class="card">
+<h2>🖼 Gallery Hunter</h2>
+<p>View artifacts and old photographs.</p>
+</div>
+
+</div>
+
+</section>
+
+<footer>
+
+<h2>Penang Heritage Museum</h2>
+<p>Preserving History For Future Generations</p>
+
+</footer>
+
+</body>
+</html>
