@@ -1,19 +1,23 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Penang Heritage Quest</title>
 
 <style>
+
 *{
 margin:0;
 padding:0;
 box-sizing:border-box;
-font-family:Arial;
+font-family:'Segoe UI',sans-serif;
 }
 
 body{
-background:#0d1117;
+background:#0a0a0a;
 color:white;
+overflow-x:hidden;
 }
 
 header{
@@ -22,59 +26,70 @@ display:flex;
 justify-content:center;
 align-items:center;
 flex-direction:column;
-background:linear-gradient(rgba(0,0,0,.7),rgba(0,0,0,.7)),
-url("https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=1600");
+background:
+linear-gradient(rgba(0,0,0,.75),rgba(0,0,0,.75)),
+url("https://images.unsplash.com/photo-1511512578047-dfb367046420?w=1920");
 background-size:cover;
+background-position:center;
 }
 
-h1{
-font-size:70px;
+header h1{
+font-size:90px;
 color:#00ffff;
-text-shadow:0 0 20px cyan;
+text-shadow:0 0 30px cyan;
+letter-spacing:4px;
 }
 
-p{
+header p{
+font-size:25px;
 margin:20px;
-font-size:20px;
+color:#ddd;
 }
 
 button{
-padding:15px 40px;
-font-size:20px;
+padding:18px 50px;
 background:#00ffff;
 border:none;
-border-radius:10px;
+border-radius:40px;
+font-size:20px;
+font-weight:bold;
 cursor:pointer;
+transition:.5s;
 }
 
-section{
-padding:60px;
+button:hover{
+transform:scale(1.1);
+box-shadow:0 0 40px cyan;
 }
 
 .title{
 text-align:center;
-font-size:40px;
+font-size:50px;
+margin:80px 0 40px;
 color:#00ffff;
-margin-bottom:40px;
+text-shadow:0 0 15px cyan;
 }
 
 .container{
+width:90%;
+margin:auto;
 display:grid;
 grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
 gap:30px;
 }
 
 .card{
-background:#161b22;
+background:#111827;
 padding:30px;
-border-radius:20px;
+border-radius:25px;
 transition:.5s;
-box-shadow:0 0 15px black;
+border:2px solid #222;
 }
 
 .card:hover{
 transform:translateY(-15px);
 box-shadow:0 0 30px cyan;
+border-color:#00ffff;
 }
 
 .card h2{
@@ -82,13 +97,66 @@ color:#00ffff;
 margin-bottom:15px;
 }
 
-footer{
-text-align:center;
-padding:30px;
-background:#161b22;
+.card p{
+line-height:1.8;
+color:#ddd;
 }
-</style>
 
+.timeline{
+
+width:90%;
+margin:auto;
+}
+
+.event{
+background:#161616;
+padding:25px;
+margin-bottom:20px;
+border-left:5px solid cyan;
+border-radius:15px;
+transition:.5s;
+}
+
+.event:hover{
+transform:translateX(20px);
+box-shadow:0 0 25px cyan;
+}
+
+.achievement{
+
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+gap:25px;
+width:90%;
+margin:auto;
+
+}
+
+.badge{
+background:#111827;
+padding:30px;
+border-radius:20px;
+text-align:center;
+transition:.5s;
+}
+
+.badge:hover{
+box-shadow:0 0 25px gold;
+transform:scale(1.05);
+}
+
+.badge h1{
+font-size:60px;
+}
+
+footer{
+margin-top:100px;
+background:#111;
+padding:40px;
+text-align:center;
+}
+
+</style>
 </head>
 <body>
 
@@ -96,75 +164,125 @@ background:#161b22;
 
 <h1>PENANG HERITAGE QUEST</h1>
 
-<p>Explore Penang History Like A Game</p>
+<p>Explore History Like A Legendary Adventure</p>
 
-<button>START QUEST</button>
+<button>START GAME</button>
 
 </header>
 
-<section>
-
-<h1 class="title">LEVELS</h1>
+<h1 class="title">🎮 STORY MODE</h1>
 
 <div class="container">
 
 <div class="card">
-<h2>🏴 Level 1</h2>
-<h3>Colonial Era</h3>
+<h2>LEVEL 1 : THE FOUNDING OF PENANG</h2>
+
 <p>
-1786 Captain Francis Light established Penang as a British trading post.
+Captain Francis Light established Penang in 1786 and transformed it into an important trading port.
 </p>
+
 </div>
 
 <div class="card">
-<h2>⚔ Level 2</h2>
-<h3>World War II</h3>
+
+<h2>LEVEL 2 : STRAITS SETTLEMENTS</h2>
+
 <p>
-Japanese occupation during 1941 changed Penang's history.
+Penang joined Malacca and Singapore to form the Straits Settlements under British rule.
 </p>
+
 </div>
 
 <div class="card">
-<h2>🏙 Level 3</h2>
-<h3>Modern Penang</h3>
+
+<h2>LEVEL 3 : WORLD WAR II</h2>
+
 <p>
-George Town became a UNESCO World Heritage Site in 2008.
+Japanese occupation during 1941 changed the history and development of Penang.
 </p>
-</div>
 
-</div>
-
-</section>
-
-<section>
-
-<h1 class="title">ACHIEVEMENTS</h1>
-
-<div class="container">
-
-<div class="card">
-<h2>🏆 Heritage Master</h2>
-<p>Learn all historical events.</p>
 </div>
 
 <div class="card">
-<h2>📜 Timeline Explorer</h2>
-<p>Discover Penang's historical timeline.</p>
-</div>
 
-<div class="card">
-<h2>🖼 Gallery Hunter</h2>
-<p>View artifacts and old photographs.</p>
-</div>
+<h2>LEVEL 4 : MODERN PENANG</h2>
+
+<p>
+George Town became a UNESCO World Heritage Site in 2008 and remains one of Malaysia's most famous destinations.
+</p>
 
 </div>
 
-</section>
+</div>
+
+<h1 class="title">📜 QUEST TIMELINE</h1>
+
+<div class="timeline">
+
+<div class="event">
+<h2>1786</h2>
+<p>Captain Francis Light founded Penang.</p>
+</div>
+
+<div class="event">
+<h2>1826</h2>
+<p>Formation of the Straits Settlements.</p>
+</div>
+
+<div class="event">
+<h2>1941</h2>
+<p>Japanese Occupation during World War II.</p>
+</div>
+
+<div class="event">
+<h2>1957</h2>
+<p>Independence of Malaya.</p>
+</div>
+
+<div class="event">
+<h2>2008</h2>
+<p>George Town became a UNESCO World Heritage Site.</p>
+</div>
+
+</div>
+
+<h1 class="title">🏆 ACHIEVEMENTS</h1>
+
+<div class="achievement">
+
+<div class="badge">
+<h1>🏆</h1>
+<h2>History Master</h2>
+<p>Complete all history levels.</p>
+</div>
+
+<div class="badge">
+<h1>⚔️</h1>
+<h2>War Survivor</h2>
+<p>Learn about World War II.</p>
+</div>
+
+<div class="badge">
+<h1>🌎</h1>
+<h2>Heritage Explorer</h2>
+<p>Discover Penang culture.</p>
+</div>
+
+<div class="badge">
+<h1>👑</h1>
+<h2>Legendary Visitor</h2>
+<p>Unlock every achievement.</p>
+</div>
+
+</div>
 
 <footer>
 
 <h2>Penang Heritage Museum</h2>
-<p>Preserving History For Future Generations</p>
+
+<p>
+Preserving History Through Interactive Experience
+</p>
 
 </footer>
 
