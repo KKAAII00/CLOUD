@@ -1,208 +1,210 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>3D Gaming Laptop Showcase</title>
+<title>3D Gaming Laptop Showroom PRO</title>
 
-  <style>
-    body {
-      margin: 0;
-      overflow: hidden;
-      background: #000;
-      font-family: Arial;
-    }
+<style>
+body {
+  margin: 0;
+  overflow: hidden;
+  font-family: Arial;
+  background: black;
+}
 
-    /* LEFT UI PANEL */
-    #panel {
-      position: absolute;
-      top: 20px;
-      left: 20px;
-      z-index: 10;
-      color: white;
-      width: 280px;
-    }
+/* UI */
+#ui {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  z-index: 10;
+  color: white;
+}
 
-    .card {
-      background: rgba(255,0,0,0.08);
-      border: 1px solid red;
-      padding: 10px;
-      margin-top: 10px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px red;
-    }
+button {
+  display: block;
+  margin: 8px 0;
+  padding: 10px;
+  width: 160px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
 
-    h2 {
-      color: red;
-      text-shadow: 0 0 10px red;
-    }
+.msi { background: red; color: white; }
+.rog { background: cyan; color: black; }
+.alien { background: lime; color: black; }
 
-    button {
-      margin-top: 8px;
-      width: 100%;
-      padding: 8px;
-      border: none;
-      cursor: pointer;
-      font-weight: bold;
-    }
+/* SPEC BOX */
+#spec {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  width: 280px;
+  background: rgba(0,0,0,0.7);
+  border: 1px solid red;
+  padding: 12px;
+  color: white;
+  display: none;
+}
 
-    .msi { background: red; color: white; }
-    .rog { background: cyan; color: black; }
-    .alien { background: lime; color: black; }
-
-    /* SPEC PANEL */
-    #specBox {
-      position: absolute;
-      right: 20px;
-      top: 20px;
-      width: 300px;
-      background: rgba(0,0,0,0.7);
-      border: 1px solid red;
-      padding: 15px;
-      color: white;
-      border-radius: 10px;
-      box-shadow: 0 0 20px red;
-      display: none;
-    }
-
-    #specBox h3 {
-      color: red;
-      margin-top: 0;
-    }
-
-  </style>
+h2 {
+  margin: 0;
+  color: red;
+  text-shadow: 0 0 10px red;
+}
+</style>
 </head>
 
 <body>
 
-<!-- UI PANEL -->
-<div id="panel">
-  <h2>💻 Gaming Laptops</h2>
-
-  <button class="msi" onclick="showSpecs('msi')">MSI Titan</button>
-  <button class="rog" onclick="showSpecs('rog')">ASUS ROG</button>
-  <button class="alien" onclick="showSpecs('alien')">Alienware X16</button>
-
-  <div class="card">
-    Click a laptop to view full specs
-  </div>
+<div id="ui">
+  <h2>💻 Gaming Showroom PRO</h2>
+  <button class="msi" onclick="focus('msi')">MSI Titan</button>
+  <button class="rog" onclick="focus('rog')">ASUS ROG</button>
+  <button class="alien" onclick="focus('alien')">Alienware</button>
 </div>
 
-<!-- SPEC BOX -->
-<div id="specBox"></div>
+<div id="spec"></div>
 
-<!-- THREE.JS -->
 <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
 
 <script>
 let scene = new THREE.Scene();
-scene.fog = new THREE.Fog(0x000000, 5, 20);
+scene.fog = new THREE.Fog(0x000000, 5, 25);
 
 let camera = new THREE.PerspectiveCamera(75, window.innerWidth/window.innerHeight, 0.1, 1000);
-camera.position.z = 8;
+camera.position.set(0,2,10);
 
 let renderer = new THREE.WebGLRenderer({antialias:true});
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-// LIGHT
+/* LIGHTS */
 let light = new THREE.PointLight(0xffffff, 2);
 light.position.set(5,5,5);
 scene.add(light);
 
-// CREATE LAPTOP FUNCTION
-function laptop(color, x) {
-  let geo = new THREE.BoxGeometry(2.5, 0.2, 1.8);
-  let mat = new THREE.MeshStandardMaterial({
-    color: color,
-    emissive: color,
-    emissiveIntensity: 0.5
-  });
+let glow1 = new THREE.PointLight(0xff0000, 2);
+glow1.position.set(-5,2,2);
+scene.add(glow1);
 
-  let mesh = new THREE.Mesh(geo, mat);
-  mesh.position.x = x;
-  return mesh;
+/* ===== REAL LAPTOP MODEL ===== */
+function createLaptop(color, x){
+
+  let group = new THREE.Group();
+
+  /* BASE */
+  let base = new THREE.Mesh(
+    new THREE.BoxGeometry(3, 0.2, 2),
+    new THREE.MeshStandardMaterial({
+      color: 0x111111,
+      emissive: color,
+      emissiveIntensity: 0.2
+    })
+  );
+  base.position.y = 0;
+  group.add(base);
+
+  /* SCREEN FRAME */
+  let screenFrame = new THREE.Mesh(
+    new THREE.BoxGeometry(3, 1.8, 0.1),
+    new THREE.MeshStandardMaterial({
+      color: 0x000000,
+      emissive: color,
+      emissiveIntensity: 0.3
+    })
+  );
+
+  screenFrame.position.set(0, 1.2, -0.9);
+  screenFrame.rotation.x = -0.25;
+  group.add(screenFrame);
+
+  /* DISPLAY (REAL SCREEN EFFECT) */
+  let display = new THREE.Mesh(
+    new THREE.PlaneGeometry(2.7, 1.5),
+    new THREE.MeshBasicMaterial({ color: color })
+  );
+
+  display.position.set(0, 1.2, -0.85);
+  display.rotation.x = -0.25;
+  group.add(display);
+
+  group.position.x = x;
+
+  return { group, display };
 }
 
-// LAPTOPS
-let MSI = laptop(0xff0000, -4);
-let ROG = laptop(0x00ffff, 0);
-let ALIEN = laptop(0x00ff00, 4);
+/* LAPTOPS */
+let MSI = createLaptop(0xff0000, -4);
+let ROG = createLaptop(0x00ffff, 0);
+let ALIEN = createLaptop(0x00ff00, 4);
 
-scene.add(MSI);
-scene.add(ROG);
-scene.add(ALIEN);
+scene.add(MSI.group);
+scene.add(ROG.group);
+scene.add(ALIEN.group);
 
-// ANIMATION
+/* SCREEN ANIMATION (FAKE OS UI EFFECT) */
+let t = 0;
+
 function animate(){
   requestAnimationFrame(animate);
 
-  MSI.rotation.y += 0.01;
-  ROG.rotation.y += 0.01;
-  ALIEN.rotation.y += 0.01;
+  t += 0.02;
+
+  MSI.group.rotation.y += 0.01;
+  ROG.group.rotation.y += 0.01;
+  ALIEN.group.rotation.y += 0.01;
+
+  // RGB SCREEN EFFECT
+  MSI.display.material.color.setHSL(Math.sin(t)*0.5+0.5, 1, 0.5);
+  ROG.display.material.color.setHSL(Math.sin(t+2)*0.5+0.5, 1, 0.5);
+  ALIEN.display.material.color.setHSL(Math.sin(t+4)*0.5+0.5, 1, 0.5);
 
   renderer.render(scene, camera);
 }
 animate();
 
-// RESIZE
+/* CAMERA + SPEC CONTROL */
+function focus(type){
+
+  if(type === "msi"){
+    camera.position.set(-4,2,8);
+    showSpec("MSI Titan 18 HX AI","i9-14900HX","RTX 4090","64GB DDR5","2TB SSD","🔥 Ultimate Cooling + FPS Beast");
+  }
+
+  if(type === "rog"){
+    camera.position.set(0,2,8);
+    showSpec("ASUS ROG Scar 18","i9 HX","RTX 4090","32–64GB DDR5","2TB SSD","⚡ Balanced Gaming Power");
+  }
+
+  if(type === "alien"){
+    camera.position.set(4,2,8);
+    showSpec("Alienware m18","i9-13900HX","RTX 4080/4090","32GB DDR5","2TB SSD","👽 Premium Sci-Fi Design");
+  }
+}
+
+/* SPEC PANEL */
+function showSpec(name,cpu,gpu,ram,storage,note){
+  let box = document.getElementById("spec");
+  box.style.display = "block";
+
+  box.innerHTML = `
+    <h3>${name}</h3>
+    <p><b>CPU:</b> ${cpu}</p>
+    <p><b>GPU:</b> ${gpu}</p>
+    <p><b>RAM:</b> ${ram}</p>
+    <p><b>Storage:</b> ${storage}</p>
+    <hr>
+    <p>${note}</p>
+  `;
+}
+
+/* RESIZE */
 window.addEventListener("resize", ()=>{
   camera.aspect = window.innerWidth/window.innerHeight;
   camera.updateProjectionMatrix();
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
-
-// SPEC DATABASE (REAL DETAIL)
-const specs = {
-  msi: {
-    name: "MSI Titan GT77",
-    cpu: "Intel i9-14900HX (24-Core)",
-    gpu: "RTX 4090 16GB",
-    ram: "64GB DDR5 6000MHz",
-    storage: "2TB NVMe Gen4 SSD",
-    display: "17.3\" 4K 144Hz",
-    cooling: "Cooler Boost Titan",
-    fps: "200–300 FPS (Ultra Settings)"
-  },
-
-  rog: {
-    name: "ASUS ROG Strix Scar 18",
-    cpu: "Intel i9-14900HX",
-    gpu: "RTX 4090 16GB",
-    ram: "32–64GB DDR5",
-    storage: "2TB NVMe SSD",
-    display: "18\" QHD+ 240Hz",
-    cooling: "Tri-Fan + Liquid Metal",
-    fps: "180–280 FPS"
-  },
-
-  alien: {
-    name: "Alienware X16",
-    cpu: "Intel i9-13900HK",
-    gpu: "RTX 4080 / 4090",
-    ram: "32GB DDR5",
-    storage: "1–2TB SSD",
-    display: "16\" QHD+ 240Hz",
-    cooling: "Advanced Cryo-tech",
-    fps: "160–250 FPS"
-  }
-};
-
-// SHOW SPEC FUNCTION
-function showSpecs(type){
-  let s = specs[type];
-
-  document.getElementById("specBox").style.display = "block";
-
-  document.getElementById("specBox").innerHTML = `
-    <h3>${s.name}</h3>
-    <p><b>CPU:</b> ${s.cpu}</p>
-    <p><b>GPU:</b> ${s.gpu}</p>
-    <p><b>RAM:</b> ${s.ram}</p>
-    <p><b>Storage:</b> ${s.storage}</p>
-    <p><b>Display:</b> ${s.display}</p>
-    <p><b>Cooling:</b> ${s.cooling}</p>
-    <p><b>Performance:</b> ${s.fps}</p>
-  `;
-}
 </script>
 
 </body>
