@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>3D Gaming Laptop Showroom PRO</title>
+<title>3D Gaming Laptop Showroom PRO+</title>
 
 <style>
 body {
@@ -28,29 +28,70 @@ button {
   border: none;
   font-weight: bold;
   cursor: pointer;
+  border-radius: 6px;
+  transition: 0.2s;
+}
+
+button:hover {
+  transform: scale(1.05);
 }
 
 .msi { background: red; color: white; }
 .rog { background: cyan; color: black; }
 .alien { background: lime; color: black; }
 
-/* SPEC BOX */
-#spec {
+/* MODAL BACKDROP */
+#overlay {
   position: absolute;
-  right: 20px;
-  top: 20px;
-  width: 280px;
-  background: rgba(0,0,0,0.7);
-  border: 1px solid red;
-  padding: 12px;
-  color: white;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.75);
   display: none;
+  z-index: 20;
 }
 
-h2 {
-  margin: 0;
+/* MODAL BOX */
+#modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) scale(0.7);
+  width: 360px;
+  background: rgba(15,15,15,0.95);
+  border: 1px solid red;
+  padding: 20px;
+  color: white;
+  border-radius: 12px;
+  box-shadow: 0 0 30px red;
+  opacity: 0;
+  transition: 0.3s ease;
+}
+
+#modal.show {
+  opacity: 1;
+  transform: translate(-50%, -50%) scale(1);
+}
+
+#modal h2 {
+  margin-top: 0;
   color: red;
   text-shadow: 0 0 10px red;
+}
+
+.closeBtn {
+  position: absolute;
+  top: 10px;
+  right: 12px;
+  cursor: pointer;
+  font-size: 18px;
+  color: white;
+}
+
+/* glow text */
+.specLine {
+  margin: 6px 0;
 }
 </style>
 </head>
@@ -58,13 +99,20 @@ h2 {
 <body>
 
 <div id="ui">
-  <h2>💻 Gaming Showroom PRO</h2>
-  <button class="msi" onclick="focus('msi')">MSI Titan</button>
-  <button class="rog" onclick="focus('rog')">ASUS ROG</button>
-  <button class="alien" onclick="focus('alien')">Alienware</button>
+  <h2 style="color:white;">💻 Gaming Showroom PRO+</h2>
+  <button class="msi" onclick="focusLaptop('msi')">MSI Titan</button>
+  <button class="rog" onclick="focusLaptop('rog')">ASUS ROG</button>
+  <button class="alien" onclick="focusLaptop('alien')">Alienware</button>
 </div>
 
-<div id="spec"></div>
+<!-- MODAL -->
+<div id="overlay" onclick="closeModal()"></div>
+
+<div id="modal">
+  <div class="closeBtn" onclick="closeModal()">✖</div>
+  <h2 id="mName"></h2>
+  <div id="mSpecs"></div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
 
@@ -79,21 +127,19 @@ let renderer = new THREE.WebGLRenderer({antialias:true});
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-/* LIGHTS */
+/* LIGHT */
 let light = new THREE.PointLight(0xffffff, 2);
 light.position.set(5,5,5);
 scene.add(light);
 
-let glow1 = new THREE.PointLight(0xff0000, 2);
-glow1.position.set(-5,2,2);
-scene.add(glow1);
+let glow = new THREE.PointLight(0xff0000, 2);
+glow.position.set(-5,2,2);
+scene.add(glow);
 
-/* ===== REAL LAPTOP MODEL ===== */
+/* CREATE LAPTOP */
 function createLaptop(color, x){
-
   let group = new THREE.Group();
 
-  /* BASE */
   let base = new THREE.Mesh(
     new THREE.BoxGeometry(3, 0.2, 2),
     new THREE.MeshStandardMaterial({
@@ -102,10 +148,8 @@ function createLaptop(color, x){
       emissiveIntensity: 0.2
     })
   );
-  base.position.y = 0;
   group.add(base);
 
-  /* SCREEN FRAME */
   let screenFrame = new THREE.Mesh(
     new THREE.BoxGeometry(3, 1.8, 0.1),
     new THREE.MeshStandardMaterial({
@@ -114,24 +158,21 @@ function createLaptop(color, x){
       emissiveIntensity: 0.3
     })
   );
-
   screenFrame.position.set(0, 1.2, -0.9);
   screenFrame.rotation.x = -0.25;
   group.add(screenFrame);
 
-  /* DISPLAY (REAL SCREEN EFFECT) */
   let display = new THREE.Mesh(
     new THREE.PlaneGeometry(2.7, 1.5),
     new THREE.MeshBasicMaterial({ color: color })
   );
-
   display.position.set(0, 1.2, -0.85);
   display.rotation.x = -0.25;
   group.add(display);
 
   group.position.x = x;
 
-  return { group, display };
+  return {group, display};
 }
 
 /* LAPTOPS */
@@ -143,7 +184,7 @@ scene.add(MSI.group);
 scene.add(ROG.group);
 scene.add(ALIEN.group);
 
-/* SCREEN ANIMATION (FAKE OS UI EFFECT) */
+/* ANIMATION */
 let t = 0;
 
 function animate(){
@@ -155,7 +196,6 @@ function animate(){
   ROG.group.rotation.y += 0.01;
   ALIEN.group.rotation.y += 0.01;
 
-  // RGB SCREEN EFFECT
   MSI.display.material.color.setHSL(Math.sin(t)*0.5+0.5, 1, 0.5);
   ROG.display.material.color.setHSL(Math.sin(t+2)*0.5+0.5, 1, 0.5);
   ALIEN.display.material.color.setHSL(Math.sin(t+4)*0.5+0.5, 1, 0.5);
@@ -164,39 +204,79 @@ function animate(){
 }
 animate();
 
-/* CAMERA + SPEC CONTROL */
-function focus(type){
+/* CAMERA FOCUS + POPUP */
+function focusLaptop(type){
+
+  let data = {};
 
   if(type === "msi"){
     camera.position.set(-4,2,8);
-    showSpec("MSI Titan 18 HX AI","i9-14900HX","RTX 4090","64GB DDR5","2TB SSD","🔥 Ultimate Cooling + FPS Beast");
+    data = {
+      name: "MSI Titan 18 HX AI",
+      cpu: "i9-14900HX",
+      gpu: "RTX 4090",
+      ram: "64GB DDR5",
+      storage: "2TB SSD",
+      note: "🔥 Ultimate Cooling + FPS Beast"
+    };
   }
 
   if(type === "rog"){
     camera.position.set(0,2,8);
-    showSpec("ASUS ROG Scar 18","i9 HX","RTX 4090","32–64GB DDR5","2TB SSD","⚡ Balanced Gaming Power");
+    data = {
+      name: "ASUS ROG Scar 18",
+      cpu: "i9 HX",
+      gpu: "RTX 4090",
+      ram: "32–64GB DDR5",
+      storage: "2TB SSD",
+      note: "⚡ Balanced Gaming Power"
+    };
   }
 
   if(type === "alien"){
     camera.position.set(4,2,8);
-    showSpec("Alienware m18","i9-13900HX","RTX 4080/4090","32GB DDR5","2TB SSD","👽 Premium Sci-Fi Design");
+    data = {
+      name: "Alienware m18",
+      cpu: "i9-13900HX",
+      gpu: "RTX 4080/4090",
+      ram: "32GB DDR5",
+      storage: "2TB SSD",
+      note: "👽 Premium Sci-Fi Design"
+    };
   }
+
+  showModal(data);
 }
 
-/* SPEC PANEL */
-function showSpec(name,cpu,gpu,ram,storage,note){
-  let box = document.getElementById("spec");
-  box.style.display = "block";
+/* MODAL CONTROL */
+function showModal(d){
+  document.getElementById("overlay").style.display = "block";
+  let modal = document.getElementById("modal");
 
-  box.innerHTML = `
-    <h3>${name}</h3>
-    <p><b>CPU:</b> ${cpu}</p>
-    <p><b>GPU:</b> ${gpu}</p>
-    <p><b>RAM:</b> ${ram}</p>
-    <p><b>Storage:</b> ${storage}</p>
+  document.getElementById("mName").innerText = d.name;
+
+  document.getElementById("mSpecs").innerHTML = `
+    <div class="specLine"><b>CPU:</b> ${d.cpu}</div>
+    <div class="specLine"><b>GPU:</b> ${d.gpu}</div>
+    <div class="specLine"><b>RAM:</b> ${d.ram}</div>
+    <div class="specLine"><b>Storage:</b> ${d.storage}</div>
     <hr>
-    <p>${note}</p>
+    <div>${d.note}</div>
   `;
+
+  document.getElementById("overlay").style.display = "block";
+  modal.style.display = "block";
+
+  setTimeout(()=> modal.classList.add("show"), 10);
+}
+
+function closeModal(){
+  document.getElementById("modal").classList.remove("show");
+
+  setTimeout(()=>{
+    document.getElementById("overlay").style.display = "none";
+    document.getElementById("modal").style.display = "none";
+  }, 200);
 }
 
 /* RESIZE */
